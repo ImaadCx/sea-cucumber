@@ -1,6 +1,8 @@
 # Sea Cucumber
 
 Sea Cucumber is an autonomous developer agent system designed to detect and prune dead API endpoints, also known as barnacles. The application combines telemetry logs, code repository statistics, runtime exceptions, and project management tickets into a single database mapping using the Coral SQL command-line interface. A developer agent powered by the NVIDIA NIM API reasons over this unified database to formulate step-by-step refactoring recipes.
+<img width="1888" height="727" alt="image" src="https://github.com/user-attachments/assets/9204128b-00e7-4b81-86c1-dd3f794fb6eb" />
+
 
 ---
 
@@ -28,6 +30,9 @@ The application operates as an automated three-tier data and reasoning pipeline:
    The user interface translates the agent recommendations into step-by-step refactoring checklists, provides clipboard-ready reports, and allows developers to file pre-filled deprecation issues directly to their GitHub repository with a single click.
 
 ---
+
+## Test it out here
+https://sea-cucumber.vercel.app/
 
 ## How to Recreate This
 
@@ -76,7 +81,6 @@ To test the scanner, you can deploy the pre-made test codebase:
    ```
 5. Enter your newly created GitHub repository URL into the scan input on the web dashboard to analyze the simulation.
 
-### 3. Deploy to Vercel
 
 The application is optimized to run as a serverless application on Vercel:
 1. Push the main `sea-cucumber` directory to your GitHub account.
