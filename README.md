@@ -1,40 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Sea Cucumber
 
-## Getting Started
+Sea Cucumber is an autonomous developer agent system designed to detect and prune dead API endpoints, also known as barnacles. The application combines telemetry logs, code repository statistics, runtime exceptions, and project management tickets into a single database mapping using the Coral SQL command-line interface. A developer agent powered by the NVIDIA NIM API reasons over this unified database to formulate step-by-step refactoring recipes.
 
-First, run the development server:
+---
 
+## How It Works
+
+The application operates as an automated three-tier data and reasoning pipeline:
+
+1. **Multi-Source Data Collection**
+   The scanner targets four separate telemetry domains to determine the lifecycle health of every API path:
+   * **Version Control Activity**: Monitors when each route file was last modified in git.
+   * **Runtime Exceptions**: Counts occurrences of errors flagged in production telemetry over the last 30 days.
+   * **Network Logs**: Monitors aggregate request traffic volumes over the last 6 months.
+   * **Jira Backlog Status**: Tracks whether a specific route has active developer tasks or unresolved tickets.
+
+2. **Unified SQL Dredging with Coral**
+   The application leverages Coral SQL to execute a schema join across all of these tabular CSV logs. The query computes logical status recommendations:
+   * **Barnacle**: Paths modified more than six months ago with low traffic, zero exceptions, and no active Jira tasks. These are designated as safe for removal.
+   * **Low Activity**: Sluggish endpoints with low request volumes, designated for deprecation warning headers.
+   * **Active**: Endpoints with steady network traffic and active development, which must remain in production.
+
+3. **Autonomous Reasoning via NVIDIA NIM**
+   The joined telemetry data is passed to a reasoning agent powered by the NVIDIA NIM completions endpoint using the `qwen/qwen3-coder-480b-a35b-instruct` model. The agent analyzes the telemetry context, determines risk classifications, and outputs a concrete code-deletion and refactoring recipe.
+
+4. **Actionable Mitigation**
+   The user interface translates the agent recommendations into step-by-step refactoring checklists, provides clipboard-ready reports, and allows developers to file pre-filled deprecation issues directly to their GitHub repository with a single click.
+
+---
+
+## How to Recreate This
+
+Follow these steps to set up, configure, and execute the Sea Cucumber platform locally or deploy it to a hosting provider.
+
+### Prerequisites
+* **Node.js**: Version 18.0.0 or higher.
+* **NVIDIA Inference API Key**: An active key from the NVIDIA Build developer platform.
+* **Coral CLI Utility**: The command-line utility for executing SQL queries on tabular files.
+
+### 1. Install and Build the Application
+
+Clone the repository and install the project dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd sea-cucumber
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Configure your environment variables by creating a `.env.local` file in the root directory:
+```bash
+NVIDIA_API_KEY=your_nvidia_api_key_here
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Start the Next.js development server:
+```bash
+npm run dev
+```
+Open your browser and navigate to `http://localhost:3000` to view the running dashboard.
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### 2. Set Up the Simulation Repository
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+To test the scanner, you can deploy the pre-made test codebase:
+1. Navigate to the `seacucumber-test-repo` directory.
+2. Initialize git and commit the simulated legacy codebase:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit of legacy search and payment service"
+   ```
+3. Create a public repository on your GitHub account named `seacucumber-test-repo`.
+4. Link your local repo to GitHub and push:
+   ```bash
+   git remote add origin https://github.com/your-username/seacucumber-test-repo.git
+   git branch -M main
+   git push -u origin main
+   ```
+5. Enter your newly created GitHub repository URL into the scan input on the web dashboard to analyze the simulation.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Deploy to Vercel
 
-## Learn More
+The application is optimized to run as a serverless application on Vercel:
+1. Push the main `sea-cucumber` directory to your GitHub account.
+2. Log in to Vercel and import your `sea-cucumber` repository.
+3. In the environment variables configuration, add your `NVIDIA_API_KEY` credential.
+4. Click deploy.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+The application utilizes an automated check. If the Coral SQL binary is unavailable in the serverless cloud environment, the backend automatically switches to pre-computed SQL joins. This preserves the operational visual workflow for external reviewers without requiring custom system permissions.
