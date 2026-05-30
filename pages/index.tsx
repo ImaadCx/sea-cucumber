@@ -811,8 +811,13 @@ export default function Home() {
       </main>
 
       {/* Footer Section */}
-      <footer className="w-full text-center py-6 border-t border-teal-950/40 z-10 text-xs text-teal-400/50 select-none">
-        <p>Powered by Coral 🪸 • Sea Cucumber AI Agent</p>
+      <footer className="w-full text-center py-6 border-t border-teal-950/40 z-10 text-xs text-teal-400/50 select-none space-y-1">
+        <p>
+          Powered by <a href="https://withcoral.com" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 underline transition-colors">Coral</a> 🪸 • Sea Cucumber AI Agent
+        </p>
+        <p>
+          Created for Coral hackathon hosted by <a href="https://wemakedevs.org" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 underline transition-colors">Wemakedevs</a>
+        </p>
       </footer>
       
     </div>
