@@ -31,6 +31,9 @@ The application operates as an automated three-tier data and reasoning pipeline:
 
 ---
 
+## Test it out here
+https://sea-cucumber.vercel.app/
+
 ## How to Recreate This
 
 Follow these steps to set up, configure, and execute the Sea Cucumber platform locally or deploy it to a hosting provider.
