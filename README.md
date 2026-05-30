@@ -76,12 +76,4 @@ To test the scanner, you can deploy the pre-made test codebase:
    ```
 5. Enter your newly created GitHub repository URL into the scan input on the web dashboard to analyze the simulation.
 
-### 3. Deploy to Vercel
 
-The application is optimized to run as a serverless application on Vercel:
-1. Push the main `sea-cucumber` directory to your GitHub account.
-2. Log in to Vercel and import your `sea-cucumber` repository.
-3. In the environment variables configuration, add your `NVIDIA_API_KEY` credential.
-4. Click deploy.
-
-The application utilizes an automated check. If the Coral SQL binary is unavailable in the serverless cloud environment, the backend automatically switches to pre-computed SQL joins. This preserves the operational visual workflow for external reviewers without requiring custom system permissions.
