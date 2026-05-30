@@ -1,6 +1,8 @@
 # Sea Cucumber
 
 Sea Cucumber is an autonomous developer agent system designed to detect and prune dead API endpoints, also known as barnacles. The application combines telemetry logs, code repository statistics, runtime exceptions, and project management tickets into a single database mapping using the Coral SQL command-line interface. A developer agent powered by the NVIDIA NIM API reasons over this unified database to formulate step-by-step refactoring recipes.
+<img width="1888" height="727" alt="image" src="https://github.com/user-attachments/assets/9204128b-00e7-4b81-86c1-dd3f794fb6eb" />
+
 
 ---
 
