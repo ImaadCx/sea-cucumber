@@ -1,6 +1,6 @@
 # Sea Cucumber
 
-Sea Cucumber is an autonomous developer agent system designed to detect and prune dead API endpoints, also known as barnacles. The application combines telemetry logs, code repository statistics, runtime exceptions, and project management tickets into a single database mapping using the Coral SQL command-line interface. A developer agent powered by the NVIDIA NIM API reasons over this unified database to formulate step-by-step refactoring recipes.
+Sea Cucumber is an autonomous developer agent system designed to detect and prune dead API endpoints, also known as barnacles. The application combines telemetry logs, code repository statistics, runtime exceptions, and project management tickets into a single database mapping using the [Coral SQL CLI](https://withcoral.com) command-line interface. A developer agent inspired by the [Pi coding agent](https://pi.dev) and powered by the [NVIDIA NIM API](https://build.nvidia.com) reasons over this unified database to formulate step-by-step refactoring recipes.
 <img width="1888" height="727" alt="image" src="https://github.com/user-attachments/assets/9204128b-00e7-4b81-86c1-dd3f794fb6eb" />
 
 
@@ -17,13 +17,13 @@ The application operates as an automated three-tier data and reasoning pipeline:
    * **Network Logs**: Monitors aggregate request traffic volumes over the last 6 months.
    * **Jira Backlog Status**: Tracks whether a specific route has active developer tasks or unresolved tickets.
 
-2. **Unified SQL Dredging with Coral**
+2. **Unified SQL Dredging with [Coral](https://withcoral.com)**
    The application leverages Coral SQL to execute a schema join across all of these tabular CSV logs. The query computes logical status recommendations:
    * **Barnacle**: Paths modified more than six months ago with low traffic, zero exceptions, and no active Jira tasks. These are designated as safe for removal.
    * **Low Activity**: Sluggish endpoints with low request volumes, designated for deprecation warning headers.
    * **Active**: Endpoints with steady network traffic and active development, which must remain in production.
 
-3. **Autonomous Reasoning via NVIDIA NIM**
+3. **Autonomous Reasoning via [NVIDIA NIM](https://build.nvidia.com)**
    The joined telemetry data is passed to a reasoning agent powered by the NVIDIA NIM completions endpoint using the `qwen/qwen3-coder-480b-a35b-instruct` model. The agent analyzes the telemetry context, determines risk classifications, and outputs a concrete code-deletion and refactoring recipe.
 
 4. **Actionable Mitigation**
@@ -33,6 +33,21 @@ The application operates as an automated three-tier data and reasoning pipeline:
 
 ## Test it out here
 https://sea-cucumber.vercel.app/
+
+---
+
+## Architecture
+
+![Sea Cucumber Architecture Diagram](./sea_cucumber_architecture.drawio.png)
+
+The application utilizes a decoupled, four-tier architecture designed to connect local tools, database query interfaces, and large language model APIs:
+
+1. **Presentation Layer**: Exposes the React user interface built in Next.js. This includes the Dredge Scan agent interface, the live terminal console log simulator, the results grid, the Coral schema relationships view, and the performance charts comparing cached reads to cold network queries.
+2. **API Gateway Layer**: Coordinates server-side execution handlers. The server exposes decoupled API routes to aggregate statistics (`/api/scan`) and manage the agent completions payload (`/api/agent-scan`).
+3. **Query and Execution Layer**: Manages local filesystem database queries. The backend process runner invokes the local Coral CLI compiler to execute relational joins across telemetry logs (Git, Sentry, request traffic, and Jira backlogs). It incorporates clean pre-computed SQL fallbacks for cloud hosting compatibility.
+4. **AI Agent and Reasoning Layer**: Executes completions queries using the NVIDIA NIM gateway. The agent formats the database context and leverages the `qwen/qwen3-coder-480b-a35b-instruct` model to perform logical deductions and compile Next.js code deletion recipes.
+
+---
 
 ## How to Recreate This
 
@@ -89,6 +104,12 @@ The application is optimized to run as a serverless application on Vercel:
 4. Click deploy.
 
 The application utilizes an automated check. If the Coral SQL binary is unavailable in the serverless cloud environment, the backend automatically switches to pre-computed SQL joins. This preserves the operational visual workflow for external reviewers without requiring custom system permissions.
+
+---
+
+## Tutorial and Documentation
+
+A step-by-step tutorial guiding developers through the process of setting up the literal Pi terminal agent with the Coral SQL CLI and NVIDIA NIM is available in the [Pi Coral NVIDIA Tutorial Repository](https://github.com/ImaadCx/pi-coral-nvidia-tutorial).
 
 ---
 

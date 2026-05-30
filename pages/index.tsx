@@ -750,7 +750,7 @@ export default function Home() {
     "coral-sql": {
       "command": "coral",
       "args": [
-        "mcp", 
+        "mcp-stdio", 
         "--allow-sources", 
         "code_csv,sentry_csv,deployment_csv,jira_csv"
       ]
