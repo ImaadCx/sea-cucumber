@@ -107,7 +107,7 @@ The application utilizes an automated check. If the Coral SQL binary is unavaila
 
 ---
 
-## Tutorial and Documentation
+## Continuation - Track 2 and Track 3(End to End Guide )
 
 A step-by-step tutorial guiding developers through the process of setting up the literal Pi terminal agent with the Coral SQL CLI and NVIDIA NIM is available in the [Pi Coral NVIDIA Tutorial Repository](https://github.com/ImaadCx/pi-coral-nvidia-tutorial).
 
